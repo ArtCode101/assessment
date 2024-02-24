@@ -1,0 +1,24 @@
+package com.kbtg.bootcamp.posttest.userTicket;
+
+import com.kbtg.bootcamp.posttest.lottery.Lottery;
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name = "user_ticket")
+public class UserTicket {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Integer id;
+
+    @Column(name = "user_id", nullable = false)
+    private String user_id;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "ticket_id",referencedColumnName = "id")
+    private Lottery lottery;
+
+}
