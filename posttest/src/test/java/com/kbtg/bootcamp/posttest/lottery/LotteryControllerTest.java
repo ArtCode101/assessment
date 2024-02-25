@@ -27,7 +27,7 @@ public class LotteryControllerTest {
 
     @Test
     @DisplayName("When Perform on Get: /Lotteries should be status code 200")
-    public void getLotteries() throws Exception {
+    public void getLotteriesTest() throws Exception {
         mockMvc.perform(get("/lotteries")).andExpect(status().isOk());
     }
 

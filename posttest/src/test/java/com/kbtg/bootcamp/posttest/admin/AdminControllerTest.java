@@ -33,7 +33,7 @@ public class AdminControllerTest {
 
     @Test
     @DisplayName("When Perform on POST: /admin/lotteries should be status code 201")
-    public void addLotteries() throws Exception {
+    public void addLotteriesTest() throws Exception {
         Mockito.when(adminService.addLottery(Mockito.any())).thenReturn(new AdminAddTicketResponse("123456"));
 
         AdminAddTicketRequest request = new AdminAddTicketRequest("123456",80,1);

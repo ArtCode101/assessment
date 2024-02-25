@@ -24,7 +24,7 @@ public class AdminServiceTest {
 
     @Test
     @DisplayName("When addLottery By admin: must be ticket 123456")
-    public void addLottery(){
+    public void addLotteryTest(){
 
         AdminAddTicketRequest request = new AdminAddTicketRequest("123456",80,1);
 
