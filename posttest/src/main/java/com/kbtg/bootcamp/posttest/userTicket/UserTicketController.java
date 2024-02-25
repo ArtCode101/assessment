@@ -26,11 +26,23 @@ public class UserTicketController {
     }
 
     @GetMapping("/users/{userId}/lotteries")
-    public GetLotteryByUserResponse getLotteryByUser(
+    public GetTicketByUserResponse getTicketByUser(
             @PathVariable("userId")
             @Size(min = 1,max = 50,message = "Min length 1 and Max length 50")
             String userId
     ){
         return userTicketService.getLotteryByUser(userId);
+    }
+
+    @DeleteMapping("/users/{userId}/lotteries/{ticketId}")
+    public DeleteTicketByUserResponse deleteTicketByUser(
+            @PathVariable("userId")
+            @Size(min = 1,max = 50,message = "Min length 1 and Max length 50")
+            String userId,
+            @PathVariable("ticketId")
+            @Pattern(regexp = "[0-9]{6}",message = "Number only and fix length 6 digit")
+            String ticketId
+    ){
+        return userTicketService.deleteTicketByUser(userId,ticketId);
     }
 }

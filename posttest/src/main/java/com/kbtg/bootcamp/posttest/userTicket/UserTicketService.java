@@ -4,6 +4,7 @@ import com.kbtg.bootcamp.posttest.exception.TicketNotFoundException;
 import com.kbtg.bootcamp.posttest.lottery.Lottery;
 import com.kbtg.bootcamp.posttest.lottery.LotteryRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class UserTicketService {
     }
 
 
+    @Transactional
     public BuyUserTicketResponse buyUserTicket(String userId, String ticketId){
 
         Optional<Lottery> lottery = lotteryRepository.findById(ticketId);
@@ -37,10 +39,10 @@ public class UserTicketService {
         return  new BuyUserTicketResponse(String.valueOf(userTicket.getId()));
     }
 
-    public GetLotteryByUserResponse getLotteryByUser(String userId){
+    public GetTicketByUserResponse getLotteryByUser(String userId){
 
         List<UserTicket> userTickets = userTicketRepository.findByUserId(userId);
-        return new GetLotteryByUserResponse(
+        return new GetTicketByUserResponse(
                 getListLottery(userTickets),
                 getCountLottery(userTickets),
                 getCostLottery(userTickets)
@@ -71,5 +73,19 @@ public class UserTicketService {
             cost += (amount *Price);
         }
         return cost;
+    }
+
+    @Transactional
+    public DeleteTicketByUserResponse deleteTicketByUser(String userId, String ticketId) {
+
+        List<UserTicket> userTickets = userTicketRepository.findByUserAndTicket(userId,ticketId);
+
+        if (userTickets.isEmpty()){
+            throw new TicketNotFoundException("Ticket not found");
+        }
+
+        userTicketRepository.deleteAll(userTickets);
+
+        return new  DeleteTicketByUserResponse(ticketId);
     }
 }
