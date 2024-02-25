@@ -2,6 +2,7 @@ package com.kbtg.bootcamp.posttest.userTicket;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,6 +14,7 @@ public class UserTicketController {
         this.userTicketService = userTicketService;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users/{userId}/lotteries/{ticketId}")
     public BuyUserTicketResponse BuyTicket(
             @PathVariable("userId")
