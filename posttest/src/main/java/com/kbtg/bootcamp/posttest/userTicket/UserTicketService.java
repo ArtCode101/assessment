@@ -34,7 +34,7 @@ public class UserTicketService {
         UserTicket userTicket = new UserTicket();
         userTicket.setUserId(userId);
         userTicket.setLottery(lottery.get());
-        userTicketRepository.save(userTicket);
+        userTicket = userTicketRepository.save(userTicket);
 
         return  new BuyUserTicketResponse(String.valueOf(userTicket.getId()));
     }

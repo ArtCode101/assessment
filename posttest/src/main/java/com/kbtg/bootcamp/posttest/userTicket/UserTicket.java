@@ -2,10 +2,14 @@ package com.kbtg.bootcamp.posttest.userTicket;
 
 import com.kbtg.bootcamp.posttest.lottery.Lottery;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "user_ticket")
 public class UserTicket {
 
