@@ -17,15 +17,8 @@ public class ApiExceptionResponse {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public ZonedDateTime getDateTime() {
         return dateTime;
     }
-
-    public void setDateTime(ZonedDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
+    
 }
