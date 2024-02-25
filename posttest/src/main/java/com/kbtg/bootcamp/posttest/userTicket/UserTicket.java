@@ -15,7 +15,7 @@ public class UserTicket {
     private Integer id;
 
     @Column(name = "user_id", nullable = false)
-    private String user_id;
+    private String userId;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ticket_id",referencedColumnName = "id")

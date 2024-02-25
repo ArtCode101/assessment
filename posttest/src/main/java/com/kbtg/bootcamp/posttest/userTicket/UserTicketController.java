@@ -24,4 +24,13 @@ public class UserTicketController {
     ){
         return userTicketService.buyUserTicket(userId,ticketId);
     }
+
+    @GetMapping("/users/{userId}/lotteries")
+    public GetLotteryByUserResponse getLotteryByUser(
+            @PathVariable("userId")
+            @Size(min = 1,max = 50,message = "Min length 1 and Max length 50")
+            String userId
+    ){
+        return userTicketService.getLotteryByUser(userId);
+    }
 }

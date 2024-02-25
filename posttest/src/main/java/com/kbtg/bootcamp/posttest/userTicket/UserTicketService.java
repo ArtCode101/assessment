@@ -5,6 +5,8 @@ import com.kbtg.bootcamp.posttest.lottery.Lottery;
 import com.kbtg.bootcamp.posttest.lottery.LotteryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,10 +30,46 @@ public class UserTicketService {
         }
 
         UserTicket userTicket = new UserTicket();
-        userTicket.setUser_id(userId);
+        userTicket.setUserId(userId);
         userTicket.setLottery(lottery.get());
         userTicketRepository.save(userTicket);
 
         return  new BuyUserTicketResponse(String.valueOf(userTicket.getId()));
+    }
+
+    public GetLotteryByUserResponse getLotteryByUser(String userId){
+
+        List<UserTicket> userTickets = userTicketRepository.findByUserId(userId);
+        return new GetLotteryByUserResponse(
+                getListLottery(userTickets),
+                getCountLottery(userTickets),
+                getCostLottery(userTickets)
+        );
+    }
+
+    private List<String> getListLottery(List<UserTicket> userTickets){
+        List<String> listLottery = new ArrayList<>();
+        for (UserTicket userTicket : userTickets){
+            listLottery.add(userTicket.getLottery().getTicket());
+        }
+        return listLottery;
+    }
+
+    private Integer getCountLottery(List<UserTicket> userTickets){
+        Integer count = 0;
+        for (UserTicket userTicket : userTickets){
+            count += userTicket.getLottery().getAmount();
+        }
+        return count;
+    }
+
+    private Integer getCostLottery(List<UserTicket> userTickets){
+        Integer cost = 0;
+        for (UserTicket userTicket : userTickets){
+            Integer amount = userTicket.getLottery().getAmount();
+            Integer Price = userTicket.getLottery().getPrice();
+            cost += (amount *Price);
+        }
+        return cost;
     }
 }
