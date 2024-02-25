@@ -1,15 +1,20 @@
 package com.kbtg.bootcamp.posttest.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AdminController {
 
+    @Autowired
+    private AdminService adminService;
+
     @PostMapping("/admin/lotteries")
     public AdminAddTicketResponse addLottery(
-            AdminAddTicketRequest request
+            @RequestBody AdminAddTicketRequest request
     ){
-        return  null;
+        return   adminService.addLottery(request);
     }
 }

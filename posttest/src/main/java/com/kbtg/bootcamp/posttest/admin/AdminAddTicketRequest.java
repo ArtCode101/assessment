@@ -11,9 +11,9 @@ public record AdminAddTicketRequest (
                 @Size(min = 6,max = 6)
         String ticket,
 
-        BigInteger price,
+        Integer price,
 
-        BigInteger amount
+        Integer amount
 ) {
 
 }
