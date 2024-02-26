@@ -1,5 +1,11 @@
 version: '3.8'
 
+networks:
+  database_network:
+
+volumes:
+  database_volume:
+
 services:
     db:
       image: postgres:16.0
@@ -11,3 +17,20 @@ services:
         POSTGRES_DB: lotteries
       ports:
         - 5432:5432
+      networks:
+        - database_network
+      volumes:
+        - database_volume:/var/lib/postgresql/data
+    app:
+      build: .
+      restart: on-failure
+      depends_on:
+        - db
+      environment:
+        - DATABASE_URL=jdbc:postgresql://postgres:5432/lotteries
+        - DATABASE_USERNAME=postgres
+        - DATABASE_PASSWORD=postgres
+      ports:
+        - "8888:8888"
+      networks:
+        - database_network
