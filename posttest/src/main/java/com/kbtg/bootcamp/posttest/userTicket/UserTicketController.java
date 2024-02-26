@@ -18,7 +18,7 @@ public class UserTicketController {
     @PostMapping("/users/{userId}/lotteries/{ticketId}")
     public BuyUserTicketResponse BuyTicket(
             @PathVariable("userId")
-            @Size(min = 1,max = 50,message = "Min length 1 and Max length 50")
+            @Pattern(regexp = "[0-9]{10}",message = "Number only and fix length 10 digit")
             String userId,
             @PathVariable("ticketId")
             @Pattern(regexp = "[0-9]{6}",message = "Number only and fix length 6 digit")
@@ -30,7 +30,7 @@ public class UserTicketController {
     @GetMapping("/users/{userId}/lotteries")
     public GetTicketByUserResponse getTicketByUser(
             @PathVariable("userId")
-            @Size(min = 1,max = 50,message = "Min length 1 and Max length 50")
+            @Pattern(regexp = "[0-9]{10}",message = "Number only and fix length 10 digit")
             String userId
     ){
         return userTicketService.getLotteryByUser(userId);
@@ -39,7 +39,7 @@ public class UserTicketController {
     @DeleteMapping("/users/{userId}/lotteries/{ticketId}")
     public DeleteTicketByUserResponse deleteTicketByUser(
             @PathVariable("userId")
-            @Size(min = 1,max = 50,message = "Min length 1 and Max length 50")
+            @Pattern(regexp = "[0-9]{10}",message = "Number only and fix length 10 digit")
             String userId,
             @PathVariable("ticketId")
             @Pattern(regexp = "[0-9]{6}",message = "Number only and fix length 6 digit")
