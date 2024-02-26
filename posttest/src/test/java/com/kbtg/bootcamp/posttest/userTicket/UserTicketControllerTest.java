@@ -30,39 +30,45 @@ public class UserTicketControllerTest {
     }
 
     @Test
-    @DisplayName("When Perform on Post: /users/1/lotteries/123456 should be status code 201")
+    @DisplayName("When Perform on Post: /users/1234567890/lotteries/123456 should be status code 201")
     public void buyTicketTest() throws Exception {
-        mockMvc.perform(post("/users/1/lotteries/123456")).andExpect(status().isCreated());
+        mockMvc.perform(post("/users/1234567890/lotteries/123456")).andExpect(status().isCreated());
     }
 
     @Test
-    @DisplayName("When Perform on Post: /users/1/lotteries/123456 should be status code 404")
+    @DisplayName("When Perform on Post: /users/1234567890/lotteries/123456 should be status code 404")
     public void buyTicketNotFoundTest() throws Exception {
         Mockito.when(userTicketService.buyUserTicket(Mockito.any(),Mockito.any())).thenThrow(new TicketNotFoundException("Ticket not found"));
-        mockMvc.perform(post("/users/1/lotteries/123456")).andExpect(status().isNotFound());
+        mockMvc.perform(post("/users/1234567890/lotteries/123456")).andExpect(status().isNotFound());
     }
 
     @Test
-    @DisplayName("When Perform on Post: /users/1/lotteries/12345 should be status code 400")
-    public void buyTicketFailTest() throws Exception {
+    @DisplayName("When Perform on Post: /users/1234567890/lotteries/12345 should be status code 400")
+    public void buyTicketFailTicketTest() throws Exception {
         mockMvc.perform(post("/users/1/lotteries/12345")).andExpect(status().isBadRequest());
     }
 
     @Test
-    @DisplayName("When Perform on Get: /users/1/lotteries should be status code 200")
+    @DisplayName("When Perform on Post: /users/123456789/lotteries/123456 should be status code 400")
+    public void buyTicketFailUserTest() throws Exception {
+        mockMvc.perform(post("/users/123456789/lotteries/123456")).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("When Perform on Get: /users/1234567890/lotteries should be status code 200")
     public void getTicketsTest() throws Exception {
-        mockMvc.perform(get("/users/1/lotteries")).andExpect(status().isOk());
+        mockMvc.perform(get("/users/1234567890/lotteries")).andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName("When Perform on Delete: /users/1/lotteries/123456 should be status code 200")
+    @DisplayName("When Perform on Delete: /users/1234567890/lotteries/123456 should be status code 200")
     public void deleteTicketsTest() throws Exception {
-        mockMvc.perform(delete("/users/1/lotteries/123456")).andExpect(status().isOk());
+        mockMvc.perform(delete("/users/1234567890/lotteries/123456")).andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName("When Perform on Delete: /users/1/lotteries/12345 should be status code 400")
+    @DisplayName("When Perform on Delete: /users/1234567890/lotteries/12345 should be status code 400")
     public void deleteTicketsFailTest() throws Exception {
-        mockMvc.perform(delete("/users/1/lotteries/12345")).andExpect(status().isBadRequest());
+        mockMvc.perform(delete("/users/1234567890/lotteries/12345")).andExpect(status().isBadRequest());
     }
 }
